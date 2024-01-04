@@ -2,12 +2,29 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import GridComponent from './components/Grid'
+
+const initialGridState = [
+  [9, 5, 0, 0, 7, 0, 0, 0, 0],
+  [3, 0, 0, 2, 0, 0, 0, 0, 6],
+  [0, 4, 0, 0, 0, 8, 2, 0, 0],
+  [0, 0, 0, 9, 0, 0, 0, 4, 0],
+  [0, 0, 3, 0, 0, 0, 5, 0, 0],
+  [0, 9, 0, 0, 0, 6, 0, 0, 0],
+  [0, 0, 7, 0, 0, 0, 0, 2, 0],
+  [1, 0, 0, 0, 0, 7, 0, 0, 8],
+  [0, 0, 0, 0, 3, 0, 0, 9, 0]
+];
+
+
+
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+      <GridComponent initialData={initialGridState} />
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -31,5 +48,7 @@ function App() {
     </>
   )
 }
+
+
 
 export default App

@@ -40,3 +40,45 @@
 .read-the-docs {
   color: #888;
 }
+
+.sudoku-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-gap: 5px;
+  max-width: 450px;
+  margin: 20px auto;
+}
+
+.sudoku-row {
+  display: contents;
+}
+
+.sudoku-cell {
+  background-color: #f0f0f0; /* default background */
+  color: black; /* default text color */
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+
+/* Coloring for checkerboard pattern */
+.sudoku-row:nth-child(3n + 1) .sudoku-cell,
+.sudoku-row:nth-child(3n + 2) .sudoku-cell:nth-child(-n+3),
+.sudoku-row:nth-child(3n + 2) .sudoku-cell:nth-child(n+7),
+.sudoku-row:nth-child(3n) .sudoku-cell:nth-child(4n+1),
+.sudoku-row:nth-child(3n) .sudoku-cell:nth-child(4n+2) {
+  background-color: black;
+  color: white;
+}
+
+/* Optional: Adds a thicker border for Sudoku blocks */
+.sudoku-cell:nth-child(3n), .sudoku-cell:nth-child(6n) {
+  border-right: 3px solid black;
+}
+
+.sudoku-row:nth-child(3n) .sudoku-cell {
+  border-bottom: 3px solid black;
+}
+
