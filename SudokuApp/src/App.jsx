@@ -3,19 +3,6 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import GridComponent from './components/Grid'
-import Reset from './components/Reset'
-
-const initialGridState = [
-  [9, 5, 0, 0, 7, 0, 0, 0, 0],
-  [3, 0, 0, 2, 0, 0, 0, 0, 6],
-  [0, 4, 0, 0, 0, 8, 2, 0, 0],
-  [0, 0, 0, 9, 0, 0, 0, 4, 0],
-  [0, 0, 3, 0, 0, 0, 5, 0, 0],
-  [0, 9, 0, 0, 0, 6, 0, 0, 0],
-  [0, 0, 7, 0, 0, 0, 0, 2, 0],
-  [1, 0, 0, 0, 0, 7, 0, 0, 8],
-  [0, 0, 0, 0, 3, 0, 0, 9, 0]
-];
 
 
 
@@ -24,6 +11,8 @@ function App() {
 
   return (
     <>
+      <h1>Welcome to my Sudoku Solver!</h1>
+      <h2>Please insert values into the Grid below</h2>
       <GridComponent />
       <div>
         <a href="https://vitejs.dev" target="_blank">
