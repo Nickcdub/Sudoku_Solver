@@ -30,6 +30,7 @@ const initialData = [
 function GridComponent() {
     // State for storing the current state of the grid
     const [data, setData] = useState(initialData);
+    const [message, setMessage] = useState('');
 
     // Function to handle input changes in the grid cells
     const handleInputChange = (rowIndex, colIndex, value) => {
@@ -44,6 +45,7 @@ function GridComponent() {
     // Function to reset the grid to its initial state
     const reset = () => {
       setData(initialData.map(row => [...row]));
+      setMessage("");
     }
 
     const solve = () => {
@@ -56,9 +58,10 @@ function GridComponent() {
       if (solvedGrid) {
         // Update the state with the solved grid
         setData(gridCopy.map(row => [...row]));
+        setMessage('Sudoku solved successfully!'); 
       } else {
         // Handle unsolvable grid scenario
-        console.log("Grid cannot be solved");
+        setMessage("Grid cannot be solved");
         // Optionally, you can also update the state or alert the user here
       }
     };
@@ -73,6 +76,7 @@ function GridComponent() {
     // Render the Sudoku grid
     return (
       <>
+        <h2 style={{ color: 'red' }}>{message}</h2> {""}
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
           {data.map((row, rowIndex) => (
             <div key={rowIndex} style={{ display: 'flex' }}>
