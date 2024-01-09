@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import GridComponent from './components/Grid'
+import Reset from './components/Reset'
 
 const initialGridState = [
   [9, 5, 0, 0, 7, 0, 0, 0, 0],
@@ -18,13 +19,12 @@ const initialGridState = [
 
 
 
-
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <GridComponent initialData={initialGridState} />
+      <GridComponent />
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

@@ -1,7 +1,10 @@
-function GridSolver(){
-
+function GridSolver({ grid }){
+    return(
+        <div>
+        </div>
+    );
 }
 
-function solveGrid(){
+function solveGrid( { grid } ){
     
 }
