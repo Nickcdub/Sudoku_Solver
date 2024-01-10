@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {solveSudoku} from './GridSolver';
+import './gridStyle.css'
 
 // Initial state of the Sudoku grid, 9x9 matrix filled with zeros
 const initialData = [
@@ -86,6 +87,7 @@ function GridComponent() {
                   type="text"
                   value={cell === 0 ? "" : cell} // Empty string for 0
                   maxLength="1"
+                  className='cell-hover-effect'
                   style={{ 
                     width: '50px',
                     height: '50px',
