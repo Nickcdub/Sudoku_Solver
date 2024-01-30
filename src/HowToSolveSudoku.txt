@@ -1,0 +1,15 @@
+Have a function that checks the possible numbers in a certain square.
+Imagine we have row (x) and column (y), Given a number n between 1-9:
+    check y's index 0-8 for that number, found it? return false
+    Do the same for x's index 0-8
+    Do the same for the submitrix 
+
+Now we get to the actual recursive function:
+Imagine we have row (x) and column (y):
+Iterate row by row, column by column
+    If the grid cell is empty (== 0) check n from 1-9
+        If n can be put into the cell without collision
+            put in n
+            recall this function
+            reset this cell == 0 //If we hit this, then we are backtracking  
+    return //(We've hit a dead end, no n fits, turn back)
