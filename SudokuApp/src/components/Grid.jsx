@@ -26,83 +26,91 @@ const initialData = [
   [4, 0, 2, 0, 6, 0, 0, 0, 0],
   [0, 0, 0, 5, 2, 4, 6, 8, 0]
 ];*/
+// Function to determine if a cell should have a black background
+const isBlackBackground = (rowIndex, colIndex) => {
+  // Logic to check for corner and center 3x3 submatrices
+  const isInCornerOrCenter = () => (colIndex > 2 && colIndex < 6) ^ (rowIndex > 2 && rowIndex < 6);
+  return isInCornerOrCenter();
+};
 
 function GridComponent() {
-    // State for storing the current state of the grid
-    const [data, setData] = useState(initialData);
-    const [message, setMessage] = useState('');
+  const [data, setData] = useState(initialData);
+  const [numSelect, setNumSelect] = useState('');
+  const [message, setMessage] = useState('');
 
-    // Function to handle input changes in the grid cells
-    const handleInputChange = (rowIndex, colIndex, value) => {
-      if (/^[1-9]$/.test(value) || value === '') {
-        // Deep copy of the grid data to update state correctly
-        let newData = data.map(row => [...row]);
-        newData[rowIndex][colIndex] = value === '' ? 0 : parseInt(value, 10);
-        setData(newData);
-      }
-    };
-
-    // Function to reset the grid to its initial state
-    const reset = () => {
-      setData(initialData.map(row => [...row]));
-      setMessage("");
+  // Function to handle input changes in the grid cells
+  const handleInputChange = (rowIndex, colIndex, value) => {
+    if (/^[1-9]$/.test(value) || value === '') {
+      // Deep copy of the grid data to update state correctly
+      let newData = data.map(row => [...row]);
+      newData[rowIndex][colIndex] = value === '' ? 0 : parseInt(value, 10);
+      setData(newData);
     }
+  };
 
-    const solve = () => {
-      // Create a deep copy of the current grid state
-      let gridCopy = data.map(row => [...row]);
-      // Solve the grid
-      const solvedGrid = solveSudoku(gridCopy)
-    
-      // Check if the grid is solved successfully
-      if (solvedGrid) {
-        // Update the state with the solved grid
-        setData(gridCopy.map(row => [...row]));
-        setMessage('Sudoku solved successfully!'); 
-      } else {
-        // Handle unsolvable grid scenario
-        setMessage("Grid cannot be solved");
-        // Optionally, you can also update the state or alert the user here
-      }
-    };
+  // Function to reset the grid to its initial state
+  const reset = () => {
+    setData(initialData.map(row => [...row]));
+    setMessage("");
+  }
 
-    // Function to determine if a cell should have a black background
-    const isBlackBackground = (rowIndex, colIndex) => {
-      // Logic to check for corner and center 3x3 submatrices
-      const isInCornerOrCenter = () => (colIndex > 2 && colIndex < 6) ^ (rowIndex > 2 && rowIndex < 6);
-      return isInCornerOrCenter();
-    };
+  const solve = () => {
+    // Create a deep copy of the current grid state
+    let gridCopy = data.map(row => [...row]);
+    // Solve the grid
+    const solvedGrid = solveSudoku(gridCopy)
+  
+    // Check if the grid is solved successfully
+    if (solvedGrid) {
+      // Update the state with the solved grid
+      setData(gridCopy.map(row => [...row]));
+      setMessage('Sudoku solved successfully!'); 
+    } else {
+      // Handle unsolvable grid scenario
+      setMessage("Grid cannot be solved");
+      // Optionally, you can also update the state or alert the user here
+    }
+  };
 
-    // Render the Sudoku grid
-    return (
-      <>
-        <h2 style={{ color: 'red' }}>{message}</h2> {""}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-          {data.map((row, rowIndex) => (
-            <div key={rowIndex} style={{ display: 'flex' }}>
-              {row.map((cell, colIndex) => (
-                <input
-                  key={colIndex}
-                  type="text"
-                  value={cell === 0 ? "" : cell} // Empty string for 0
-                  maxLength="1"
-                  style={{ 
-                    width: '50px',
-                    height: '50px',
-                    textAlign: 'center',
-                    backgroundColor: isBlackBackground(rowIndex, colIndex) ? 'black' : 'white',
-                    color: isBlackBackground(rowIndex, colIndex) ? 'white' : 'black'
-                  }}
-                  onChange={(e) => handleInputChange(rowIndex, colIndex, e.target.value)}
-                />
-              ))}
-            </div>
-          ))}
-        </div>
-        <button onClick={reset}>Reset</button>
-        <button onClick={solve}>Solve Sudoku</button>
-      </>
-    );
+  return(
+  // Create a 9x9 grid
+  <>
+    <h2 style={{ color: 'red' }}>{message}</h2>
+    <div>
+      {Array.from({ length: 9 }, (_, i) => i + 1).map(number => (
+        <button key={number} onClick={() => setNumSelect(number)} style={{backgroundColor: 'white', color: 'black', border: '1px solid black'}}>
+          {number}
+        </button>
+     ))}
+     <button onClick={() => setNumSelect('')} style={{backgroundColor: 'gray', color: 'black' , border: '1px solid black'}}>Clear</button>
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {data.map((row, rowIndex) => (
+          <div key={rowIndex} style={{ display: 'flex' }}>
+            {row.map((cell, colIndex) => (
+              <div key={colIndex} 
+              onClick={() => handleInputChange(rowIndex, colIndex, numSelect)}
+              style={
+              { 
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '40px', 
+                  height: '40px', 
+                  border: isBlackBackground(rowIndex, colIndex) ? '1px solid white' : '1px solid black',
+                  color:  isBlackBackground(rowIndex, colIndex) ? 'white' : 'black', //Change text color, white on white = invisible
+                  backgroundColor: isBlackBackground(rowIndex, colIndex) ? 'black' : 'white',
+               }}>
+                {cell === 0 ? "" : cell}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <button onClick={reset} style={{backgroundColor: 'red' , border: '1px solid black'}}>Reset Board</button>
+      <button onClick={solve} style={{backgroundColor: 'white', color: 'black' , border: '1px solid black'}}>Solve Sudoku</button>
+    </>
+  )
 }
 
 
